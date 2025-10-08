@@ -1,0 +1,6 @@
+﻿  alg11.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+C:\Users\User\source\repos\alg11\alg11.cpp(18): error C4716: 'razl': must return a value
+  All 143 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+LINK : fatal error LNK1257: code generation failed

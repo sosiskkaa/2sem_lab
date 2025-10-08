@@ -1,0 +1,4 @@
+﻿  alg11.cpp
+C:\Users\User\source\repos\alg11\alg11.cpp(28,20): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+C:\Users\User\source\repos\alg11\alg11.cpp(48,17): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+  alg11.vcxproj -> C:\Users\User\source\repos\alg11\x64\Debug\alg11.exe
