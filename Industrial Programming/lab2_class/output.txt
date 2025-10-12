@@ -1,0 +1,25 @@
+ishodnaya matrica:
+2 3 4 5 7 
+7 0 8 1 3 
+4 5 0 9 5 
+2 3 5 4 9 
+3 6 5 1 1 
+
+matrica posle obmena strok:
+4 5 0 9 5 
+7 0 8 1 3 
+2 3 4 5 7 
+2 3 5 4 9 
+3 6 5 1 1 
+
+naiden 0 na diagonali. 1-aya stroka, element = 8
+
+maximum vstrecaushiesya rovno 2 raza = 9
+
+otsortirovannaya po 1-im elementam stolbcov matrica:
+0 4 5 5 9 
+8 7 0 3 1 
+4 2 3 7 5 
+5 2 3 9 4 
+5 3 6 1 1 
+
