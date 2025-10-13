@@ -1,0 +1,3 @@
+﻿  alg0.7.rec.cpp
+C:\Users\User\source\repos\alg0.7.rec\alg0.7.rec.cpp(29,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  alg0.7.rec.vcxproj -> C:\Users\User\source\repos\alg0.7.rec\x64\Debug\alg0.7.rec.exe
