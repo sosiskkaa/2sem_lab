@@ -5,7 +5,8 @@
 
 using namespace std;
 
-struct Point {
+struct Point
+{
     int x, y;
     Point(int _x, int _y) : x(_x), y(_y) {}
     Point() : x(0), y(0) {}
@@ -17,59 +18,50 @@ vector<vector<bool>> occup;
 vector<vector<Point>> parent;
 int n, m, k;
 
-bool bfs(int stx, int sty, int ex, vector<Point>& path) 
+int dx[8] = { 0, 1, 1,  1,  0, -1, -1, -1 };
+int dy[8] = { 1, 1, 0, -1, -1, -1,  0,  1 };
+
+bool DFS(int x, int y, int ex, vector<Point>& path, vector<vector<bool>>& visited, int ldir)
 {
-    if (occup[stx][sty])
+    if (occup[x][y] || visited[x][y]) 
         return false;
+    visited[x][y] = true;
+    path.push_back(Point(x, y));
 
-    vector<vector<bool>> visited(n, vector<bool>(m, false));
-    parent.assign(n, vector<Point>(m, Point(-1, -1)));
-
-    queue<Point> q;
-    q.push(Point(stx, sty));
-    visited[stx][sty] = true;
-
-    int dx[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
-    int dy[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
-
-    while (!q.empty()) 
+    if (x == n - 1 && y == ex - 1) 
     {
-        Point current = q.front();
-        q.pop();
+        return true;
+    }
 
-        int i = current.x, j = current.y;
+    int sdir = (ldir + 2) % 8;
 
-        if (i == n - 1 && j == ex - 1) 
+    for (int k = 0; k < 8; k++) 
+    {
+        int dir = (sdir + k) % 8;
+        int nx = x + dx[dir];
+        int ny = y + dy[dir];
+
+        if (nx >= 0 && nx < n && ny >= 0 && ny < m && lab[nx][ny] == 0 && !occup[nx][ny] && !visited[nx][ny])
         {
-            path.clear();
-            Point node = current;
-            while (node.x != -1 && node.y != -1) 
+            if (DFS(nx, ny, ex, path, visited, dir))
             {
-                path.push_back(node);
-                node = parent[node.x][node.y];
-            }
-            reverse(path.begin(), path.end());
-            return true;
-        }
-
-        for (int dir = 0; dir < 8; dir++) 
-        {
-            int ni = i + dx[dir];
-            int nj = j + dy[dir];
-
-            if (ni >= 0 && ni < n && nj >= 0 && nj < m && !visited[ni][nj] && !occup[ni][nj] && lab[ni][nj] == 0) 
-            {
-                visited[ni][nj] = true;
-                parent[ni][nj] = current;
-                q.push(Point(ni, nj));
+                return true;
             }
         }
     }
 
+    path.pop_back();
     return false;
 }
 
-int main() 
+bool dfs(int stx, int sty, int ex, vector<Point>& path)
+{
+    vector<vector<bool>> visited(n, vector<bool>(m, false));
+    path.clear();
+    return DFS(stx, sty, ex, path, visited, 2);
+}
+
+int main()
 {
     ifstream in("labyrinth.in");
     ofstream out("labyrinth.out");
@@ -86,9 +78,9 @@ int main()
     reslab.resize(n, vector<int>(m));
     occup.assign(n, vector<bool>(m, false));
 
-    for (int i = 0; i < n; i++) 
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++) 
+        for (int j = 0; j < m; j++)
         {
             in >> lab[i][j];
             reslab[i][j] = lab[i][j];
@@ -97,7 +89,7 @@ int main()
     }
 
     vector<int> order(k);
-    for (int i = 0; i < k; i++) 
+    for (int i = 0; i < k; i++)
     {
         order[i] = i;
     }
@@ -108,18 +100,18 @@ int main()
 
     int pcount = 0;
 
-    for (int pind : order) 
+    for (int pind : order)
     {
         vector<Point> path;
         int start_x = 0;
         int start_y = lin[pind] - 1;
 
-        if (bfs(start_x, start_y, lout[pind], path)) 
+        if (dfs(start_x, start_y, lout[pind], path))
         {
             pcount++;
-            for (const Point& p : path) 
+            for (const Point& p : path)
             {
-                if (!(p.x == 0 || p.x == n - 1)) 
+                if (!(p.x == 0 || p.x == n - 1))
                 {
                     occup[p.x][p.y] = true;
                 }
@@ -132,9 +124,9 @@ int main()
     }
 
     out << pcount << endl;
-    for (int i = 0; i < n; i++) 
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++) 
+        for (int j = 0; j < m; j++)
         {
             out << reslab[i][j];
             if (j < m - 1) out << " ";
