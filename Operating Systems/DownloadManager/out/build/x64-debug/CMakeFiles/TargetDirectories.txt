@@ -1,0 +1,6 @@
+C:/Users/User/source/repos/DownloadManager/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/User/source/repos/DownloadManager/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/User/source/repos/DownloadManager/out/build/x64-debug/DownloadManager/CMakeFiles/Browser.dir
+C:/Users/User/source/repos/DownloadManager/out/build/x64-debug/DownloadManager/CMakeFiles/Downloader.dir
+C:/Users/User/source/repos/DownloadManager/out/build/x64-debug/DownloadManager/CMakeFiles/edit_cache.dir
+C:/Users/User/source/repos/DownloadManager/out/build/x64-debug/DownloadManager/CMakeFiles/rebuild_cache.dir
