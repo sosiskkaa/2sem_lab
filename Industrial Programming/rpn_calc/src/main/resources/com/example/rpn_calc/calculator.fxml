@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="474.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rpn_calc.CalculatorController">
+    <children>
+      <ImageView fitHeight="302.0" fitWidth="398.0" layoutX="-16.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/orel2025-11-03221741.png" />
+         </image></ImageView>
+        <Text fill="#1fc325" layoutX="98.0" layoutY="139.0" text="polskaya zapis" underline="true">
+         <font>
+            <Font name="Monospaced Bold" size="20.0" />
+         </font></Text>
+        <Text layoutX="75.0" layoutY="79.0" text="vvedite virazhenie" underline="true">
+         <font>
+            <Font name="Monospaced Regular" size="20.0" />
+         </font></Text>
+        <Text layoutX="146.0" layoutY="218.0" text="result" underline="true">
+         <font>
+            <Font name="Monospaced Regular" size="20.0" />
+         </font></Text>
+
+        <TextField fx:id="inputField" layoutX="97.0" layoutY="85.0" prefWidth="170.0">
+         <font>
+            <Font name="Monospaced Regular" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></TextField>
+        <TextField fx:id="rpnField" editable="false" layoutX="97.0" layoutY="145.0" prefWidth="170.0">
+         <font>
+            <Font name="Monospaced Regular" size="20.0" />
+         </font></TextField>
+        <TextField fx:id="resultField" editable="false" layoutX="98.0" layoutY="225.0" prefWidth="170.0">
+         <font>
+            <Font name="Monospaced Regular" size="20.0" />
+         </font></TextField>
+
+        <Button fx:id="calculateButton" layoutX="93.0" layoutY="288.0" onAction="#onCalculateClick" prefHeight="89.0" prefWidth="179.0" text="Calculate" textAlignment="CENTER" underline="true">
+         <font>
+            <Font name="Monospaced Regular" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+    </children>
+</Pane>

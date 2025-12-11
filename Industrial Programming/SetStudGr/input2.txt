@@ -1,0 +1,5 @@
+Petr 3.8 102
+Anna 3.2 104
+Dmitry 4.3 106
+Olga 4.7 107
+Ivan 4.5 101

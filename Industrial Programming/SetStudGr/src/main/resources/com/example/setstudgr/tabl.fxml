@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="600" prefWidth="800" style="-fx-background-color: rgb(74, 93, 83);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.setstudgr.TableController">
+
+    <top>
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: rgb(21, 34, 36);" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+
+            <Button fx:id="vvodButton" prefHeight="50" prefWidth="120" style="-fx-font: 700 15pt 'Terminal'; -fx-text-fill: black; -fx-background-color: rgb(135, 170, 151);" text="Ввод">
+                <font>
+                    <Font name="Monospaced Bold" size="16.0" />
+                </font>
+            </Button>
+
+            <Button fx:id="otchislitButton" prefHeight="50" prefWidth="120" style="-fx-font: 700 15pt 'Terminal'; -fx-text-fill: black; -fx-background-color: rgb(170, 135, 135);" text="Отчислить">
+                <font>
+                    <Font name="Monospaced Bold" size="16.0" />
+                </font>
+            </Button>
+
+            <Label text="Сортировка:" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14pt;">
+                <font>
+                    <Font name="Monospaced Bold" size="14.0" />
+                </font>
+            </Label>
+
+            <ComboBox fx:id="sortComboBox" prefWidth="250" style="-fx-font: 12pt 'Monospaced';"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TableView fx:id="mainTable" prefHeight="500.0" prefWidth="780.0" style="-fx-font: 10pt 'Monospaced Bold'; -fx-text-fill: black; -fx-background-color: rgb(110, 121, 138);">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="200" text="Имя" />
+                <TableColumn fx:id="gradeColumn" prefWidth="150" text="Оценка" />
+                <TableColumn fx:id="numColumn" prefWidth="150" text="Группа" />
+                <TableColumn fx:id="statusColumn" prefWidth="150" text="Статус" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
