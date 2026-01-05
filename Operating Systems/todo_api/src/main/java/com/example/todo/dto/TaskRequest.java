@@ -1,18 +1,13 @@
-package com.example.todo.model;
+package com.example.todo.dto;
 
+import com.example.todo.model.Task;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Task {
-    private Long id;
-
+public class TaskRequest {
     @NotBlank(message = "Title is required")
     @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
     private String title;
@@ -21,17 +16,5 @@ public class Task {
     private String description;
 
     @NotNull(message = "Status is required")
-    private TaskStatus status;
-
-    public enum TaskStatus {
-        TODO,
-        IN_PROGRESS,
-        DONE
-    }
-
-    public Task(String title, String description, TaskStatus status) {
-        this.title = title;
-        this.description = description;
-        this.status = status;
-    }
+    private Task.TaskStatus status;
 }

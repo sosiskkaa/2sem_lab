@@ -1,8 +1,9 @@
 package com.example.todo.service;
 
+import com.example.todo.dto.TaskRequest;
+import com.example.todo.dto.TaskResponse;
 import com.example.todo.exception.TaskNotFoundException;
 import com.example.todo.model.Task;
-import com.example.todo.model.Task.TaskStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,83 +16,92 @@ public class TaskService {
     private final List<Task> tasks = new ArrayList<>();
     private final AtomicLong idCounter = new AtomicLong(1);
 
-    // Инициализация демо-данных
     public TaskService() {
         tasks.add(new Task(idCounter.getAndIncrement(), "Купить молоко",
-                "Обязательно 3.2% жирности", TaskStatus.TODO));
+                "Обязательно 3.2% жирности", Task.TaskStatus.TODO));
         tasks.add(new Task(idCounter.getAndIncrement(), "Запустить API",
-                "Настроить Spring Boot приложение", TaskStatus.IN_PROGRESS));
+                "Настроить Spring Boot приложение", Task.TaskStatus.IN_PROGRESS));
         tasks.add(new Task(idCounter.getAndIncrement(), "Прочитать документацию",
-                "Изучить Spring REST", TaskStatus.DONE));
+                "Изучить Spring REST", Task.TaskStatus.DONE));
     }
 
-    // Получить все задачи
-    public List<Task> getAllTasks() {
-        return new ArrayList<>(tasks);
-    }
-
-    // Получить все задачи с фильтрацией по статусу
-    public List<Task> getTasksByStatus(TaskStatus status) {
+    public List<TaskResponse> getAllTasks() {
         return tasks.stream()
-                .filter(task -> task.getStatus() == status)
+                .map(TaskResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    // Получить задачу по ID
-    public Task getTaskById(Long id) {
+    public List<TaskResponse> getTasksByStatus(Task.TaskStatus status) {
         return tasks.stream()
-                .filter(task -> task.getId().equals(id))
+                .filter(task -> task.getStatus() == status)
+                .map(TaskResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public TaskResponse getTaskById(Long id) {
+        Task task = tasks.stream()
+                .filter(t -> t.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new TaskNotFoundException(id));
+
+        return TaskResponse.fromEntity(task);
     }
 
-    // Создать новую задачу
-    public Task createTask(Task task) {
+    public TaskResponse createTask(TaskRequest request) {
         Task newTask = new Task(
                 idCounter.getAndIncrement(),
-                task.getTitle(),
-                task.getDescription(),
-                task.getStatus()
+                request.getTitle(),
+                request.getDescription(),
+                request.getStatus()
         );
         tasks.add(newTask);
-        return newTask;
+
+        return TaskResponse.fromEntity(newTask);
     }
 
-    // Полностью обновить задачу
-    public Task updateTask(Long id, Task task) {
-        Task existingTask = getTaskById(id);
-        existingTask.setTitle(task.getTitle());
-        existingTask.setDescription(task.getDescription());
-        existingTask.setStatus(task.getStatus());
-        return existingTask;
+    public TaskResponse updateTask(Long id, TaskRequest request) {
+        Task existingTask = tasks.stream()
+                .filter(t -> t.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new TaskNotFoundException(id));
+
+        existingTask.setTitle(request.getTitle());
+        existingTask.setDescription(request.getDescription());
+        existingTask.setStatus(request.getStatus());
+
+        return TaskResponse.fromEntity(existingTask);
     }
 
-    // Частично обновить задачу (PATCH)
-    public Task patchTask(Long id, Task taskUpdates) {
-        Task existingTask = getTaskById(id);
+    public TaskResponse patchTask(Long id, TaskRequest request) {
+        Task existingTask = tasks.stream()
+                .filter(t -> t.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new TaskNotFoundException(id));
 
-        if (taskUpdates.getTitle() != null) {
-            existingTask.setTitle(taskUpdates.getTitle());
+        if (request.getTitle() != null) {
+            existingTask.setTitle(request.getTitle());
         }
 
-        if (taskUpdates.getDescription() != null) {
-            existingTask.setDescription(taskUpdates.getDescription());
+        if (request.getDescription() != null) {
+            existingTask.setDescription(request.getDescription());
         }
 
-        if (taskUpdates.getStatus() != null) {
-            existingTask.setStatus(taskUpdates.getStatus());
+        if (request.getStatus() != null) {
+            existingTask.setStatus(request.getStatus());
         }
 
-        return existingTask;
+        return TaskResponse.fromEntity(existingTask);
     }
 
-    // Удалить задачу
     public void deleteTask(Long id) {
-        Task taskToDelete = getTaskById(id);
+        Task taskToDelete = tasks.stream()
+                .filter(t -> t.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new TaskNotFoundException(id));
+
         tasks.remove(taskToDelete);
     }
 
-    // Получить количество задач
     public long getTaskCount() {
         return tasks.size();
     }

@@ -1,15 +1,14 @@
 package com.example.todo.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-@ResponseStatus(HttpStatus.NOT_FOUND)
 public class TaskNotFoundException extends RuntimeException {
-    public TaskNotFoundException(Long id) {
-        super("Task not found with id: " + id);
+    private final Long taskId;
+
+    public TaskNotFoundException(Long taskId) {
+        super(String.format("Task with id '%d' not found", taskId));
+        this.taskId = taskId;
     }
 
-    public TaskNotFoundException(String message) {
-        super(message);
+    public Long getTaskId() {
+        return taskId;
     }
 }
